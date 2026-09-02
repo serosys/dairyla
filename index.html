@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DairyLa — Ghee, Paneer, Halwa, Peda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8EC;
+    --panel:#EFE0BF;
+    --cocoa:#4A2E1A;
+    --cocoa-soft:#6E5136;
+    --gold:#C88A2E;
+    --gold-deep:#9C6A1E;
+    --kumkum:#7A2E1E;
+    --basil:#3A4A2E;
+    --line: rgba(74,46,26,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--cocoa);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky;
+    top:0;
+    z-index:20;
+    background:rgba(255,248,236,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:20px 32px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .brand{
+    font-family:'Fraunces',serif;
+    font-size:24px;
+    font-weight:600;
+    letter-spacing:0.01em;
+    color:var(--cocoa);
+    text-decoration:none;
+  }
+  .brand span{color:var(--gold-deep);}
+  nav ul{
+    list-style:none;
+    display:flex;
+    gap:32px;
+    margin:0;
+    padding:0;
+  }
+  nav a{
+    text-decoration:none;
+    font-size:15px;
+    color:var(--cocoa-soft);
+    transition:color 0.2s ease;
+  }
+  nav a:hover{color:var(--kumkum);}
+  .nav-cta{
+    display:inline-block;
+    padding:10px 20px;
+    background:var(--cocoa);
+    color:var(--cream);
+    text-decoration:none;
+    border-radius:2px;
+    font-size:14px;
+    transition:background 0.2s ease;
+  }
+  .nav-cta:hover{background:var(--kumkum);}
+  .menu-toggle{display:none;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:88px 32px 96px;
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(40px, 5.2vw, 64px);
+    line-height:1.08;
+    color:var(--cocoa);
+  }
+  .hero .eyebrow{
+    font-size:15px;
+    color:var(--kumkum);
+    margin-bottom:18px;
+    font-family:'Inter',sans-serif;
+  }
+  .hero p.lede{
+    font-size:18px;
+    color:var(--cocoa-soft);
+    max-width:440px;
+    margin-top:22px;
+  }
+  .hero-actions{
+    display:flex;
+    gap:16px;
+    margin-top:36px;
+    flex-wrap:wrap;
+  }
+  .btn-primary{
+    background:var(--gold);
+    color:#3A2409;
+    padding:14px 28px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:500;
+    transition:background 0.2s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{background:var(--gold-deep); color:var(--cream);}
+  .btn-ghost{
+    border:1px solid var(--cocoa);
+    color:var(--cocoa);
+    padding:13px 26px;
+    border-radius:2px;
+    text-decoration:none;
+    font-size:15px;
+    display:inline-block;
+    transition:background 0.2s ease;
+  }
+  .btn-ghost:hover{background:var(--cocoa); color:var(--cream);}
+
+  .hero-art{
+    display:flex;
+    justify-content:center;
+  }
+  .hero-art svg{width:100%; max-width:380px; height:auto;}
+
+  /* ---------- Marquee strip ---------- */
+  .strip{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--panel);
+    padding:16px 0;
+    overflow:hidden;
+  }
+  .strip-inner{
+    display:flex;
+    gap:64px;
+    white-space:nowrap;
+    animation:scroll 28s linear infinite;
+    width:max-content;
+  }
+  .strip-inner span{
+    font-family:'Fraunces',serif;
+    font-size:16px;
+    color:var(--cocoa-soft);
+  }
+  @keyframes scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+
+  /* ---------- Products / Menu board ---------- */
+  .products{
+    padding:100px 32px 40px;
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .section-head{
+    max-width:560px;
+    margin-bottom:56px;
+  }
+  .section-head .kicker{
+    font-size:15px;
+    color:var(--kumkum);
+    margin-bottom:14px;
+  }
+  .section-head h2{
+    font-size:clamp(28px,3.4vw,38px);
+    line-height:1.15;
+  }
+  .menu-board{
+    border-top:1px solid var(--cocoa);
+  }
+  .menu-item{
+    display:grid;
+    grid-template-columns:56px 1fr auto;
+    gap:24px;
+    align-items:start;
+    padding:32px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .menu-item .num{
+    font-family:'Fraunces',serif;
+    font-size:15px;
+    color:var(--gold-deep);
+    padding-top:4px;
+  }
+  .menu-item h3{
+    font-size:26px;
+    margin-bottom:8px;
+  }
+  .menu-item p{
+    color:var(--cocoa-soft);
+    font-size:15.5px;
+    max-width:520px;
+    margin:0;
+  }
+  .menu-item .price{
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    color:var(--cocoa);
+    white-space:nowrap;
+    padding-top:6px;
+  }
+  .menu-item .price small{
+    display:block;
+    font-family:'Inter',sans-serif;
+    font-size:12.5px;
+    color:var(--cocoa-soft);
+    font-weight:400;
+    margin-top:2px;
+  }
+
+  /* ---------- Process strip ---------- */
+  .process{
+    background:var(--cocoa);
+    color:var(--cream);
+    padding:96px 32px;
+    margin-top:100px;
+  }
+  .process-inner{
+    max-width:1080px;
+    margin:0 auto;
+  }
+  .process .section-head h2{color:var(--cream);}
+  .process .section-head .kicker{color:#E4B15E;}
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:0;
+    margin-top:48px;
+  }
+  .step{
+    padding:0 24px 0 0;
+    border-left:1px solid rgba(255,248,236,0.22);
+    padding-left:24px;
+  }
+  .step:first-child{border-left:none; padding-left:0;}
+  .step .icon{
+    width:40px; height:40px;
+    margin-bottom:20px;
+  }
+  .step h3{
+    font-size:18px;
+    color:var(--cream);
+    margin-bottom:10px;
+  }
+  .step p{
+    font-size:14.5px;
+    color:rgba(255,248,236,0.72);
+    margin:0;
+  }
+
+  /* ---------- Story / About ---------- */
+  .story{
+    padding:100px 32px;
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:0.85fr 1.15fr;
+    gap:64px;
+    align-items:center;
+  }
+  .story-visual{
+    background:var(--panel);
+    border-radius:2px;
+    padding:48px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .story-visual svg{width:100%; height:auto;}
+  .story-text .kicker{
+    font-size:15px;
+    color:var(--kumkum);
+    margin-bottom:14px;
+  }
+  .story-text h2{
+    font-size:clamp(26px,3vw,34px);
+    margin-bottom:20px;
+    line-height:1.2;
+  }
+  .story-text p{
+    color:var(--cocoa-soft);
+    font-size:16px;
+    max-width:480px;
+    margin-bottom:16px;
+  }
+  .story-stats{
+    display:flex;
+    gap:40px;
+    margin-top:32px;
+  }
+  .story-stats div strong{
+    display:block;
+    font-family:'Fraunces',serif;
+    font-size:30px;
+    color:var(--gold-deep);
+  }
+  .story-stats div span{
+    font-size:13.5px;
+    color:var(--cocoa-soft);
+  }
+
+  /* ---------- Testimonial ---------- */
+  .testimonial{
+    background:var(--panel);
+    padding:90px 32px;
+  }
+  .testimonial-inner{
+    max-width:680px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .testimonial blockquote{
+    font-family:'Fraunces',serif;
+    font-size:clamp(22px,2.8vw,30px);
+    line-height:1.4;
+    margin:0 0 24px;
+    color:var(--cocoa);
+  }
+  .testimonial cite{
+    font-style:normal;
+    font-size:14px;
+    color:var(--cocoa-soft);
+  }
+
+  /* ---------- Order / CTA ---------- */
+  .cta-band{
+    padding:100px 32px;
+    max-width:1080px;
+    margin:0 auto;
+    text-align:center;
+  }
+  .cta-band h2{
+    font-size:clamp(30px,4vw,44px);
+    max-width:600px;
+    margin:0 auto 20px;
+    line-height:1.18;
+  }
+  .cta-band p{
+    color:var(--cocoa-soft);
+    font-size:16px;
+    max-width:440px;
+    margin:0 auto 36px;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{
+    border-top:1px solid var(--line);
+    padding:56px 32px 40px;
+  }
+  .footer-inner{
+    max-width:1080px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.3fr 1fr 1fr 1fr;
+    gap:40px;
+  }
+  .footer-inner h4{
+    font-size:14px;
+    color:var(--cocoa);
+    margin-bottom:16px;
+    font-weight:500;
+  }
+  .footer-inner ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .footer-inner li{margin-bottom:10px;}
+  .footer-inner a{
+    text-decoration:none;
+    color:var(--cocoa-soft);
+    font-size:14.5px;
+  }
+  .footer-inner a:hover{color:var(--kumkum);}
+  .footer-brand p{
+    color:var(--cocoa-soft);
+    font-size:14.5px;
+    max-width:280px;
+    margin-top:12px;
+  }
+  .footer-bottom{
+    max-width:1080px;
+    margin:40px auto 0;
+    padding-top:24px;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    color:var(--cocoa-soft);
+    display:flex;
+    justify-content:space-between;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:860px){
+    nav ul{display:none;}
+    .hero{grid-template-columns:1fr; text-align:left;}
+    .hero-art{order:-1;}
+    .story{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr 1fr; row-gap:36px;}
+    .step{border-left:none; padding-left:0;}
+    .footer-inner{grid-template-columns:1fr 1fr; row-gap:32px;}
+  }
+  @media (max-width:520px){
+    .wrap, .nav, .hero, .products, .process-inner, .story, .cta-band, .footer-inner{padding-left:20px; padding-right:20px;}
+    .menu-item{grid-template-columns:1fr; gap:8px;}
+    .menu-item .price{padding-top:0;}
+    .steps{grid-template-columns:1fr;}
+    .footer-inner{grid-template-columns:1fr;}
+    .footer-bottom{flex-direction:column; gap:8px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .strip-inner{animation:none;}
+  }
+
+  :focus-visible{
+    outline:2px solid var(--kumkum);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand">Dairy<span>La</span></a>
+    <nav>
+      <ul>
+        <li><a href="#products">Menu</a></li>
+        <li><a href="#process">Our process</a></li>
+        <li><a href="#story">Our story</a></li>
+        <li><a href="#order">Order</a></li>
+      </ul>
+    </nav>
+    <a href="#order" class="nav-cta">Order fresh</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Small-batch dairy, made daily in Ahmedabad</p>
+      <h1>Ghee poured slow.<br>Paneer set soft.<br>Sweetness kept honest.</h1>
+      <p class="lede">DairyLa hand-makes bilona ghee, fresh paneer, and traditional halwa and peda from milk collected each morning — no shortcuts, no additives, just what our grandmothers would recognise.</p>
+      <div class="hero-actions">
+        <a href="#order" class="btn-primary">Order fresh</a>
+        <a href="#products" class="btn-ghost">See the menu</a>
+      </div>
+    </div>
+    <div class="hero-art">
+      <svg viewBox="0 0 380 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of golden ghee being poured from a copper vessel into a clay pot">
+        <ellipse cx="190" cy="392" rx="150" ry="14" fill="#4A2E1A" opacity="0.08"/>
+        <path d="M100 250 C90 230 95 200 130 190 L230 190 C265 200 270 230 258 250 L250 320 C248 345 225 360 190 360 C155 360 132 345 130 320 Z" fill="#C88A2E" opacity="0.14"/>
+        <path d="M120 260 L112 320 C110 345 145 358 190 358 C235 358 265 345 262 320 L250 260 Z" fill="#EFE0BF" stroke="#4A2E1A" stroke-width="2.5"/>
+        <ellipse cx="186" cy="260" rx="66" ry="14" fill="#9C6A1E" stroke="#4A2E1A" stroke-width="2.5"/>
+        <path d="M150 190 C140 175 148 160 168 158 L212 158 C232 160 240 175 230 190" fill="none" stroke="#4A2E1A" stroke-width="2.5"/>
+        <g>
+          <path d="M228 60 L296 30 C304 26 314 30 314 40 L308 108 C306 122 296 130 282 128 L232 118 Z" fill="#C88A2E" stroke="#4A2E1A" stroke-width="2.5"/>
+          <path d="M300 34 L338 22 C346 20 350 28 344 34 L306 50" fill="none" stroke="#4A2E1A" stroke-width="2.5"/>
+          <ellipse cx="270" cy="72" rx="34" ry="18" fill="#E4B15E" opacity="0.6"/>
+        </g>
+        <path d="M230 118 C210 150 198 172 192 192" fill="none" stroke="#E4B15E" stroke-width="5" stroke-linecap="round"/>
+        <path d="M236 112 C214 146 202 170 196 190" fill="none" stroke="#C88A2E" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="200" cy="196" r="4" fill="#C88A2E"/>
+        <circle cx="205" cy="205" r="3" fill="#C88A2E"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Marquee strip -->
+  <div class="strip" aria-hidden="true">
+    <div class="strip-inner">
+      <span>Bilona-churned ghee</span>
+      <span>Fresh paneer, cut daily</span>
+      <span>Gajar and moong dal halwa</span>
+      <span>Doodh peda, hand-rolled</span>
+      <span>No preservatives, ever</span>
+      <span>Bilona-churned ghee</span>
+      <span>Fresh paneer, cut daily</span>
+      <span>Gajar and moong dal halwa</span>
+      <span>Doodh peda, hand-rolled</span>
+      <span>No preservatives, ever</span>
+    </div>
+  </div>
+
+  <!-- Products / Menu board -->
+  <section class="products" id="products">
+    <div class="section-head">
+      <p class="kicker">What we make</p>
+      <h2>Four things, made properly</h2>
+    </div>
+
+    <div class="menu-board">
+      <div class="menu-item">
+        <span class="num">01</span>
+        <div>
+          <h3>A2 bilona ghee</h3>
+          <p>Curd churned by hand, then simmered slow over a low flame until it turns deep gold and smells of roasted milk solids. Grainy, aromatic, the way it used to be made.</p>
+        </div>
+        <div class="price">₹780<small>per 500g jar</small></div>
+      </div>
+
+      <div class="menu-item">
+        <span class="num">02</span>
+        <div>
+          <h3>Fresh paneer</h3>
+          <p>Milk curdled with lemon the same morning it's sold, pressed just enough to hold its shape while staying soft. Delivered within hours of setting, never frozen.</p>
+        </div>
+        <div class="price">₹340<small>per 500g block</small></div>
+      </div>
+
+      <div class="menu-item">
+        <span class="num">03</span>
+        <div>
+          <h3>Gajar and moong dal halwa</h3>
+          <p>Slow-cooked in ghee with khoya and cardamom until it turns glossy. Made in small batches through winter when the carrots are sweetest; moong dal halwa runs year-round.</p>
+        </div>
+        <div class="price">₹420<small>per 500g box</small></div>
+      </div>
+
+      <div class="menu-item">
+        <span class="num">04</span>
+        <div>
+          <h3>Doodh peda</h3>
+          <p>Milk reduced for hours over a wood-fired kadhai, then hand-rolled while still warm. Lightly sweetened, finished with a pinch of cardamom and a sliver of pistachio.</p>
+        </div>
+        <div class="price">₹360<small>per box of 12</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section class="process" id="process">
+    <div class="process-inner">
+      <div class="section-head">
+        <p class="kicker">From farm to jar</p>
+        <h2>What happens before it reaches you</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="#E4B15E" stroke-width="1.6"><path d="M8 30V16l12-9 12 9v14H8Z"/><path d="M16 30V22h8v8"/></svg>
+          <h3>Morning collection</h3>
+          <p>Milk is collected from two farms outside Ahmedabad before sunrise and reaches our kitchen the same day.</p>
+        </div>
+        <div class="step">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="#E4B15E" stroke-width="1.6"><circle cx="20" cy="20" r="12"/><path d="M20 12v8l6 4"/></svg>
+          <h3>Set and churned</h3>
+          <p>Curd sets overnight and is hand-churned in small batches, the way bilona ghee has always been made.</p>
+        </div>
+        <div class="step">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="#E4B15E" stroke-width="1.6"><path d="M10 14h20l-2 16H12L10 14Z"/><path d="M10 14 8 8h24l-2 6"/></svg>
+          <h3>Slow cooked</h3>
+          <p>Ghee is simmered over a low flame, paneer is pressed light, and sweets are stirred by hand until they're ready.</p>
+        </div>
+        <div class="step">
+          <svg class="icon" viewBox="0 0 40 40" fill="none" stroke="#E4B15E" stroke-width="1.6"><rect x="8" y="16" width="24" height="16" rx="1"/><path d="M8 16 20 8l12 8"/></svg>
+          <h3>Packed same day</h3>
+          <p>Everything is jarred or boxed the day it's made and reaches your door within 24 hours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Story -->
+  <section class="story" id="story">
+    <div class="story-visual">
+      <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a cow, a milk pot and a sprig of cardamom">
+        <circle cx="130" cy="130" r="118" fill="#EFE0BF" opacity="0"/>
+        <ellipse cx="130" cy="150" rx="70" ry="40" fill="#C88A2E" opacity="0.18"/>
+        <path d="M70 150 C60 120 80 90 130 90 C180 90 200 120 190 150 C185 168 170 178 130 178 C90 178 75 168 70 150Z" fill="#EFE0BF" stroke="#4A2E1A" stroke-width="2.5"/>
+        <circle cx="105" cy="120" r="7" fill="#4A2E1A"/>
+        <circle cx="155" cy="120" r="7" fill="#4A2E1A"/>
+        <path d="M92 100 L82 78" stroke="#4A2E1A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M168 100 L178 78" stroke="#4A2E1A" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M112 155 Q130 168 148 155" stroke="#4A2E1A" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="125" cy="142" rx="5" ry="4" fill="#7A2E1E" opacity="0.5"/>
+        <ellipse cx="150" cy="145" rx="4" ry="3" fill="#7A2E1E" opacity="0.5"/>
+      </svg>
+    </div>
+    <div class="story-text">
+      <p class="kicker">Our story</p>
+      <h2>Started in one kitchen, still run the same way</h2>
+      <p>DairyLa began with a single copper vessel and milk from two farms just outside Ahmedabad. We haven't scaled the way most dairies do. We still churn ghee by hand, still press paneer in small batches, and still stir halwa until it's ready rather than until the clock says so.</p>
+      <p>Every jar and box that leaves our kitchen was made that same day, for someone we expect to notice the difference.</p>
+      <div class="story-stats">
+        <div><strong>2</strong><span>Partner farms</span></div>
+        <div><strong>6 yrs</strong><span>Making ghee the same way</span></div>
+        <div><strong>0</strong><span>Preservatives used</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonial -->
+  <section class="testimonial">
+    <div class="testimonial-inner">
+      <blockquote>"The ghee smells like my nani's kitchen. That's the only review that matters to me."</blockquote>
+      <cite>Meera Shah, regular customer since 2022</cite>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band" id="order">
+    <h2>Fresh doesn't wait. Neither should you.</h2>
+    <p>Order today for same-day delivery within Ahmedabad, or next-day dispatch across Gujarat.</p>
+    <a href="#top" class="btn-primary">Order now</a>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#top" class="brand">Dairy<span>La</span></a>
+      <p>Small-batch ghee, paneer, halwa and peda, made fresh every morning in Ahmedabad.</p>
+    </div>
+    <div>
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="#products">Ghee</a></li>
+        <li><a href="#products">Paneer</a></li>
+        <li><a href="#products">Halwa</a></li>
+        <li><a href="#products">Peda</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#story">Our story</a></li>
+        <li><a href="#process">Our process</a></li>
+        <li><a href="#order">Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Reach us</h4>
+      <ul>
+        <li><a href="tel:+919999999999">+91 99999 99999</a></li>
+        <li><a href="mailto:hello@dairyla.in">hello@dairyla.in</a></li>
+        <li><a href="#top">Ahmedabad, Gujarat</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 DairyLa. Made fresh daily.</span>
+    <span>Ahmedabad, Gujarat</span>
+  </div>
+</footer>
+
+</body>
+</html>
